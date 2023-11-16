@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content container-fluid">
+    <div class="page-header">
+       <div class="row align-items-center">
+          <div class="col">
+             <h3 class="page-title">Update Students</h3>
+             <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="students.html">Students</a></li>
+                <li class="breadcrumb-item active">Edit Students</li>
+             </ul>
+          </div>
+       </div>
+    </div>
+    
+  {% include 'includes/messages.html' %}
+
+  
+    <div class="row">
+       <div class="col-sm-12">
+          <div class="card">
+             <div class="card-body">
+                <form action=""  method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                   <div class="row">
+                      <div class="col-12">
+                         <h5 class="form-title"><span>Student Information</span></h5>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" name="first_name"  value="{% for i in student %}{{i.first_name}} {% endfor %}">
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" name="last_name" value="{% for i in student %}{{i.last_name}} {% endfor %}">
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Student Id</label>
+                            <input type="number" class="form-control" name="student_regis" value="{% for i in student %}{{i.student_regis}} {% endfor %}">
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Gender</label>
+                            <select class="form-control" name="gender"  value="{% for i in student %}{{i.gender}} {% endfor %}">
+                               <option  selected value="{% for i in student %}{{i.gender}} {% endfor %}">{% for i in student %}{{i.gender|title}} {% endfor %}</option>
+                               <option value="female">Female</option>
+                               <option value="male">Male</option>
+                               <option value="others">Others</option>
+                            </select>
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Date of Birth</label>
+                            <div>
+                               <input type="date" class="form-control" name="dob" value="{% for i in student %}{{i.dob}}{% endfor %}" required>
+                            </div>
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label >Class</label>
+                            <!-- <input type="text" class="form-control" name="class"> -->
+                            <select class="form-control" name="course_id"  value="{% for i in student %}{{i.course_id}} {% endfor %}" required>
+                                <option selected   value="{% for i in student %}{{i.course_id}} {% endfor %}">{% for i in student %}{{i.course_id}} {% endfor %}</option>
+                                <option  disabled value="">--Select Class--</option>
+                                {% for i in course %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                {% endfor %}
+                            </select>
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>B.Form ID</label>
+                            <input type="text"  class="form-control" placeholder="3001234567890" name="b_cnic" value="{% for i in student %}{{i.b_cnic}}{% endfor %}">
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Session Year</label>
+                            <select class="form-control" name="session_year_id" value="{% for i in student %}{{i.session_year_id}} {% endfor %}" required>
+                                <option selected value="{% for i in student %}{{i.session_year_id}} {% endfor %}">{% for i in student %}{{i.session_year_id}} {% endfor %}</option>
+                                <option  disabled value="">--Select Session--</option>
+
+                                {% for i in session_year %}
+                                     <option value="{{i.id}}">{{i.session_start}} to {{i.session_end}}</option>
+                                {% endfor %}
+                                
+                            </select>
+                         </div>
+                      </div>
+                      <!-- <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="number" class="form-control" name="mobile">
+                         </div>
+                      </div> -->
+                      <!-- <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Admission Number</label>
+                            <input type="text" class="form-control" name="register_student">
+                         </div>
+                      </div> -->
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Section</label>
+                            <input type="text" class="form-control" name="section" value="{% for i in student %}{{i.section}} {% endfor %}">
+
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Student Image</label>
+                            <input type="file" class="form-control" name="student_pic" value="{% for i in student %}{{i.student_pic}} {% endfor %}">
+                         </div>
+                      </div>
+                      <div class="col-12">
+                         <h5 class="form-title"><span>Parent Information</span></h5>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Father's Name</label>
+                            <input type="text" class="form-control" name="father_name" value="{% for i in student %}{{i.father_name}} {% endfor %}">
+                         </div>
+                      </div>
+                      <!-- <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Father's CNIC</label>
+                            <input type="number" class="form-control" placeholder="3001234567890" name="father_cnic" >
+                         </div>
+                      </div> -->
+                       <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Father's Occupation</label>
+                            <input type="text" class="form-control" name="father_oc" value="{% for i in student %}{{i.father_oc}} {% endfor %}">
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Father's Mobile</label>
+                            <input type="text" class="form-control" name="father_mobile" value="{% for i in student %}{{i.father_mobile}} {% endfor %}">
+                         </div>
+                      </div>
+                     
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Mother's Name</label>
+                            <input type="text" class="form-control" name="mother_name" value="{% for i in student %}{{i.mother_mobile}} {% endfor %}">
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Mother's Occupation</label>
+                            <input type="text" class="form-control" name="mother_oc" value="{% for i in student %}{{i.mother_oc}} {% endfor %}">
+                         </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Mother's Mobile</label>
+                            <input type="text" class="form-control" name="mother_mobile" value="{% for i in student %}{{i.mother_mobile}} {% endfor %}">
+                         </div>
+                      </div>
+                      <!-- <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Mother's Email</label>
+                            <input type="email" class="form-control">
+                         </div>
+                      </div> -->
+                      <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Present Address</label>
+                            <textarea class="form-control" name="address" value="{% for i in student %}{{i.address}} {% endfor %}"></textarea>
+                         </div>
+                      </div>
+                      <!-- <div class="col-12 col-sm-6">
+                         <div class="form-group">
+                            <label>Permanent Address</label>
+                            <textarea class="form-control"></textarea>
+                         </div>
+                      </div> -->
+                      <div class="col-12">
+                         <button type="submit" class="btn btn-primary">Submit</button>
+                      </div>
+                   </div>
+                </form>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+{% endblock %}
