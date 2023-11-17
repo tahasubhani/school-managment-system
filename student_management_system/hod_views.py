@@ -85,6 +85,85 @@ def VIEW_STUDENT(request):
     }
     return render(request,'hod/view_student.html',context)
 
+
+
+def StudentDetails(request,id):
+    student = Student.objects.get(b_cnic=id)
+    # # print(student)
+    course =Course.objects.all()
+    session_year =Session_Year.objects.all()
+    ##########################################################
+    if request.method == 'POST':
+        # student_id = request.POST.get('student_id')
+        # print(student_id)
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        student_regis = request.POST.get('student_regis')
+        gender = request.POST.get('gender')
+        dob = request.POST.get('dob')
+        course_id = request.POST.get('course_id')
+        b_cnic = request.POST.get('b_cnic')
+        session_year_id = request.POST.get('session_year_id')
+        section_abc = request.POST.get('section_abc')
+        student_pic = request.FILES.get('student_pic')
+        father_name = request.POST.get('father_name')
+        father_oc = request.POST.get('father_oc')
+        father_mobile = request.POST.get('father_mobile')
+        mother_name = request.POST.get('mother_name')
+        mother_oc = request.POST.get('mother_oc')
+        mother_mobile = request.POST.get('mother_mobile')
+        address = request.POST.get('address')
+
+        
+        try:
+            student = Student.objects.get(b_cnic=id)
+            student.first_name = first_name
+            student.last_name =  last_name
+            student.student_regis = student_regis
+            student.gender = gender
+            student.dob = dob
+            # print(course_id)
+            # student.course_id = Course.objects.all()
+            student.b_cnic = b_cnic
+            # student.session_year_id = Session_Year.objects.get(id=session_year_id)
+            student.section_abc = section_abc
+            # student.student_pic = student_pic
+            if student_pic !=None and student_pic != '':
+                student.student_pic = student_pic
+            student.father_name = father_name
+            student.father_oc = father_oc
+            student.father_mobile = father_mobile
+            student.mother_name = mother_name
+            student.mother_oc = mother_oc
+            student.mother_mobile = mother_mobile
+            student.address = address
+
+            student.save()
+            messages.success(request,'Student profile Updated Successfully')
+            return redirect('view_student')
+        except Student.DoesNotExist:
+            messages.error(request,'your Profile is not updated')
+
+
+
+    ############################################################
+    
+    context = {
+            'course': course,
+            'session_year': session_year,
+            'student':student,
+
+        }
+    return render(request,'hod/student_details.html',context)
+# course =Course.objects.get(id=id)
+    
+#     context = {
+            
+#             'course': course,
+            
+#         }
+#     return render(request,'hod/student_details.html',context)
+
 def student_delete(request,id):
 
     student_del =Student.objects.get(b_cnic=id)
@@ -111,7 +190,8 @@ def EDIT_STUDENT(request,id):
         course_id = request.POST.get('course_id')
         b_cnic = request.POST.get('b_cnic')
         session_year_id = request.POST.get('session_year_id')
-            #    section = section,
+        section_abc = request.POST.get('section_abc')
+
         student_pic = request.FILES.get('student_pic')
         father_name = request.POST.get('father_name')
         father_oc = request.POST.get('father_oc')
@@ -133,6 +213,8 @@ def EDIT_STUDENT(request,id):
             student.course_id = Course.objects.get(id=course_id)
             student.b_cnic = b_cnic
             student.session_year_id = Session_Year.objects.get(id=session_year_id)
+            student.section_abc = section_abc
+            
             # student.student_pic = student_pic
             if student_pic !=None and student_pic != '':
                 student.student_pic = student_pic
@@ -262,3 +344,7 @@ def course_delete(request,id):
     course_del.delete()
     messages.success(request,'Class is deleted Successfully')
     return redirect('view_course')
+
+# function staff
+def ADD_STAFF(request):
+    return render(request,'hod/student_details.html')

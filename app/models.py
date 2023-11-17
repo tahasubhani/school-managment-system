@@ -49,6 +49,7 @@ class Student(models.Model):
     student_pic = models.ImageField(upload_to = 'media/student_pic',default='',null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    section_abc = models.CharField(max_length=100)
 
     def __str__(self):
             return self.b_cnic + ' ' + self.first_name + " " + self.last_name + " " + self.father_mobile

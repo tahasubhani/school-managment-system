@@ -46,18 +46,19 @@ urlpatterns = [
     path('hod/home',hod_views.HOME,name='hod_home'),
     path('hod/student/add',hod_views.AddStudent,name='add_student'),
     path('hod/student/view',hod_views.VIEW_STUDENT,name='view_student'),
+    path('hod/student/details/<str:id>',hod_views.StudentDetails,name='student_details'),
     path('hod/student/edit/<str:id>',hod_views.EDIT_STUDENT, name='edit_student'),
-    # path('hod/student/update/',hod_views.UPDATE_STUDENT, name='update_student'),
     path("delete/<int:id>",hod_views.student_delete , name ='delete'),
 
     # add class paths
     path('hod/class/add',hod_views.AddCourse,name='add_course'),
-    path('hod/class/view',hod_views.ViewCourse,name='view_course_edit'),
-    path('hod/class/view',hod_views.ViewCourse,name='view_course_del'),
     path('hod/class/view',hod_views.ViewCourse,name='view_course'),
     path('hod/class/edit/<str:id>',hod_views.EDIT_COURSE, name='edit_course'),
     path('hod/class/update/',hod_views.UPDATE_COURSE, name='update_course'),
     path("delete/class/<int:id>",hod_views.course_delete , name ='delete_c'),
+
+    #add staff path
+    path('hod/staff/add',hod_views.ADD_STAFF,name='add_staff'),
 
 
 

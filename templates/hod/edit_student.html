@@ -115,7 +115,7 @@
                       <div class="col-12 col-sm-6">
                          <div class="form-group">
                             <label>Section</label>
-                            <input type="text" class="form-control" name="section" value="{% for i in student %}{{i.section}} {% endfor %}">
+                            <input type="text" class="form-control" name="section_abc" value="{% for i in student %}{{i.section_abc}} {% endfor %}">
 
                          </div>
                       </div>
@@ -123,7 +123,7 @@
                          <div class="form-group">
                             <label>Student Image</label>
                             <input type="file" class="form-control" name="student_pic"  >
-                            <input type="text" class="form-control" name="student_id" value="{% for i in student %}{{i.id}} {% endfor %}">
+                            <input type="text" class="form-control" name="student_id" value="{% for i in student %}{{i.id}} {% endfor %}" hidden>
                          </div>
                       </div>
                       <div class="col-12">
