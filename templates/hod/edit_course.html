@@ -7,7 +7,7 @@
              <h3 class="page-title">Add Class</h3>
              <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="students.html">Students</a></li>
-                <li class="breadcrumb-item active">Add Class</li>
+                <li class="breadcrumb-item active">Add Class Fee</li>
              </ul>
           </div>
        </div>
@@ -35,9 +35,18 @@
                           
                          </div>
                       </div>
+                      <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                           <label>Class Fee</label>
+                           
+                           <input type="text" class="form-control" name="fee_course" required value="{{course.fee_course}}">
+                           <input type="text" class="form-control" name="course_id" required value="{{course.id}}" hidden>
+                         
+                        </div>
+                     </div>
 
                       <div class="col-12">
-                         <button type="submit" class="btn btn-primary">Add Course</button>
+                         <button type="submit" class="btn btn-primary">Update Class</button>
                       </div>
                    </div>
                 </form>

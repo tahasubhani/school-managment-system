@@ -6,7 +6,7 @@
           <div class="col">
              <h3 class="page-title">Add Class</h3>
              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="students.html">Students</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'view_student' %}">Students</a></li>
                 <li class="breadcrumb-item active">Add Class</li>
              </ul>
           </div>
@@ -24,14 +24,19 @@
                     {% csrf_token %}
                    <div class="row">
                       <div class="col-12">
-                         <h5 class="form-title"><span>Add Class</span></h5>
+                         <h5 class="form-title"><span>Add Class </span></h5>
                       </div>
                       <div class="col-12 col-sm-6">
                          <div class="form-group">
                             <label>Class Name</label>
-                            <input type="text" class="form-control" name="course_name" required>
+                            <input type="text" class="form-control" name="name" required value="{{course.name}}">
                          </div>
-                      </div>
+                      </div> <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                           <label>Class Fee</label>
+                           <input type="text" class="form-control" name="fee_course" required value="{{course.fee_course}}">
+                        </div>
+                     </div>
                       <!-- <div class="col-12 col-sm-6">
                          <div class="form-group">
                             <label>Last Name</label>

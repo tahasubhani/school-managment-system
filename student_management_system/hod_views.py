@@ -27,7 +27,7 @@ def AddStudent(request):
         course_id = request.POST.get('course_id')
         b_cnic = request.POST.get('b_cnic')
         session_year_id = request.POST.get('session_year_id')
-        # section = request.POST.get('section')
+        section_abc = request.POST.get('section_abc')
         student_pic = request.FILES.get('student_pic')
         father_name = request.POST.get('father_name')
         father_oc = request.POST.get('father_oc')
@@ -58,7 +58,7 @@ def AddStudent(request):
                course_id = course,
                b_cnic = b_cnic,
                session_year_id = session_year,
-            #    section = section,
+               section_abc = section_abc,
                student_pic = student_pic,
                father_name = father_name,
                father_oc = father_oc,
@@ -296,10 +296,12 @@ def EDIT_STUDENT(request,id):
         
 def AddCourse(request):
     if request.method == 'POST':
-        course_name = request.POST['course_name']
+        name = request.POST['name']
+        fee_course = request.POST['fee_course']
         # print(course_name)
         course = Course(
-            name = course_name,
+            name = name,
+            fee_course = fee_course,
         )
         course.save()
         messages.success(request,'Class is Successfully Created')
@@ -329,10 +331,12 @@ def EDIT_COURSE(request,id):
 def UPDATE_COURSE(request):
     if request.method == 'POST':
         name = request.POST.get('name')
+        fee_course = request.POST.get('fee_course')
         course_id = request.POST.get('course_id')
         # print(course_name,course_id)
         course = Course.objects.get(id=course_id)
         course.name = name
+        course.fee_course = fee_course
         course.save()
         messages.success(request,'Class Name is Editted successfully')
         return redirect('view_course')
