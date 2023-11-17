@@ -40,11 +40,12 @@
                 </ul>
              </li>
              <li class="submenu">
-                <a href="#"><i class="fas fa-building"></i> <span> Course</span> <span class="menu-arrow"></span></a>
+                <a href="#"><i class="fas fa-building"></i> <span> Class</span> <span class="menu-arrow"></span></a>
                 <ul>
-                   <li><a href="departments.html">Course View</a></li>
-                   <li><a href="add-department.html">Course Add</a></li>
-                   <li><a href="edit-department.html">Course Edit</a></li>
+                   <li><a href="{% url 'add_course' %}">Add Class</a></li>
+                   <li><a href="{% url 'view_course' %}">View All Classes</a></li>
+                   <li><a href="{% url 'view_course_edit' %}">Edit Class</a></li>
+                   <li><a href="{% url 'view_course_del' %}">Delete Class</a></li>
                 </ul>
              </li>
              <li class="submenu">
