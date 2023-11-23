@@ -22,19 +22,19 @@ class Course(models.Model):
         def __str__(self):
             return self.name
 
-class Session_Year(models.Model):
-        session_start = models.CharField(max_length=100)
-        session_end = models.CharField(max_length=100)
-        def __str__(self):
-            return self.session_start + " to " + self.session_end
 class Section(models.Model):
-    name = models.CharField(max_length=100)
+    section_name = models.CharField(max_length=100)
     # fee_course = models.CharField(max_length=100,default='', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.section_name
+class Session_Year(models.Model):
+        session_start = models.CharField(max_length=100)
+        session_end = models.CharField(max_length=100)
+        def __str__(self):
+            return self.session_start + " to " + self.session_end
 
 
 class Student(models.Model):

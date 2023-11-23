@@ -14,8 +14,9 @@ def HOME(request):
 @login_required(login_url='/')
 def AddStudent(request):
     regis = 2023000 if Student.objects.count() == 0 else Student.objects.aggregate(max=Max('student_regis'))["max"]+1
-    print(regis)
+    # print(regis)
     section = Section.objects.all()
+    # print(section)
     course = Course.objects.all()
     session_year = Session_Year.objects.all()
     # print(course)
@@ -30,13 +31,12 @@ def AddStudent(request):
       
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
-        # student_regis = request.POST.get('student_regis')
         gender = request.POST.get('gender')
         dob = request.POST.get('dob')
         course_id = request.POST.get('course_id')
-        b_cnic = request.POST.get('b_cnic')
-        session_year_id = request.POST.get('session_year_id')
         section_id = request.POST.get('section_id')
+        session_year_id = request.POST.get('session_year_id')
+        b_cnic = request.POST.get('b_cnic')
         student_pic = request.FILES.get('student_pic')
         father_name = request.POST.get('father_name')
         father_oc = request.POST.get('father_oc')
@@ -55,9 +55,14 @@ def AddStudent(request):
             except Course.DoesNotExist:
                 messages.error('value does not exist')
                 return redirect('add_student')
-
+            # try:
+            #     section = Section.objects.get(id=section_id)
+            # except Section.DoesNotExist:
+            #     messages.error('value does not exist')
+            #     return redirect('add_student')
             session_year = Session_Year.objects.get(id=session_year_id)
             section = Section.objects.get(id=section_id)
+            
 
             student = Student(
                first_name = first_name,
@@ -86,7 +91,7 @@ def AddStudent(request):
     context={
         'course': course,
         'session_year': session_year,
-        'section_id': section,
+        'section': section,
         'student_regis': regis
     }
     return render(request,'hod/add_student.html',context)
@@ -105,6 +110,8 @@ def StudentDetails(request,id):
     # # print(student)
     course =Course.objects.all()
     session_year =Session_Year.objects.all()
+    section = Section.objects.all()
+    
     ##########################################################
     if request.method == 'POST':
         # student_id = request.POST.get('student_id')
@@ -139,7 +146,7 @@ def StudentDetails(request,id):
             # student.course_id = Course.objects.all()
             student.b_cnic = b_cnic
             # student.session_year_id = Session_Year.objects.get(id=session_year_id)
-            student.section_abc = section_abc
+            student.section_id = section_id
             # student.student_pic = student_pic
             if student_pic !=None and student_pic != '':
                 student.student_pic = student_pic
