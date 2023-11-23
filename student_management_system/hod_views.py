@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import Course, Session_Year, CustomUser,Student
+from app.models import Course, Session_Year, CustomUser,Student,Section
 from django.contrib import messages
-
+from django.db.models import Max
 
 @login_required(login_url='/')
 def HOME(request):
@@ -13,21 +13,30 @@ def HOME(request):
 # add student function
 @login_required(login_url='/')
 def AddStudent(request):
+    regis = 2023000 if Student.objects.count() == 0 else Student.objects.aggregate(max=Max('student_regis'))["max"]+1
+    print(regis)
+    section = Section.objects.all()
     course = Course.objects.all()
     session_year = Session_Year.objects.all()
     # print(course)
     # print(session_year)
+    # try:
+    #     student = Student.objects.create(student_regis=regis)
+    #     error = 'no'
+    # except:
+    #     error = 'yes'
+
     if request.method == 'POST':
       
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
-        student_regis = request.POST.get('student_regis')
+        # student_regis = request.POST.get('student_regis')
         gender = request.POST.get('gender')
         dob = request.POST.get('dob')
         course_id = request.POST.get('course_id')
         b_cnic = request.POST.get('b_cnic')
         session_year_id = request.POST.get('session_year_id')
-        section_abc = request.POST.get('section_abc')
+        section_id = request.POST.get('section_id')
         student_pic = request.FILES.get('student_pic')
         father_name = request.POST.get('father_name')
         father_oc = request.POST.get('father_oc')
@@ -37,7 +46,6 @@ def AddStudent(request):
         mother_mobile = request.POST.get('mother_mobile')
         address = request.POST.get('address')
         # print(first_name,last_name,student_regis,gender,dob,course_id,b_cnic,session_year_id,section,student_pic,father_name,father_oc,father_mobile,mother_name,mother_oc,mother_mobile,address)
-        
         if Student.objects.filter(b_cnic=b_cnic).exists():
             messages.warning(request,'Student is already registered in your account')
             return redirect('add_student')
@@ -49,16 +57,18 @@ def AddStudent(request):
                 return redirect('add_student')
 
             session_year = Session_Year.objects.get(id=session_year_id)
+            section = Section.objects.get(id=section_id)
+
             student = Student(
                first_name = first_name,
                last_name = last_name,
-               student_regis = student_regis,
+               student_regis = regis,
                gender = gender,
                dob = dob,
                course_id = course,
+               section_id = section,
                b_cnic = b_cnic,
                session_year_id = session_year,
-               section_abc = section_abc,
                student_pic = student_pic,
                father_name = father_name,
                father_oc = father_oc,
@@ -68,13 +78,16 @@ def AddStudent(request):
                mother_mobile =mother_mobile,
                address = address,
            )
+            
             student.save()
             messages.success(request,'Student admitted Succcesfully')
         
         return redirect('add_student')
     context={
         'course': course,
-        'session_year': session_year
+        'session_year': session_year,
+        'section_id': section,
+        'student_regis': regis
     }
     return render(request,'hod/add_student.html',context)
 def VIEW_STUDENT(request):

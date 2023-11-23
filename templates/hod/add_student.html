@@ -41,7 +41,7 @@
                       <div class="col-12 col-sm-6">
                          <div class="form-group">
                             <label>Student Id</label>
-                            <input type="number" class="form-control" name="student_regis">
+                            <input type="number" class="form-control" name="student_regis" value="{{student_regis}}" readonly>
                          </div>
                       </div>
                       <div class="col-12 col-sm-6">
@@ -106,11 +106,16 @@
                          </div>
                       </div> -->
                       <div class="col-12 col-sm-6">
-                         <div class="form-group">
-                            <label>Section</label>
-                            <input type="text" class="form-control" name="section_abc">
-
-                         </div>
+                        <div class="form-group">
+                           <label >Class</label>
+                           <!-- <input type="text" class="form-control" name="class"> -->
+                           <select class="form-control" name="section_id"  required >
+                               <option selected disabled value="">--Select Class--</option>
+                               {% for i in section %}
+                                   <option value="{{i.id}}">{{i.name}}</option>
+                               {% endfor %}
+                           </select>
+                        </div>
                       </div>
                       <div class="col-12 col-sm-6">
                          <div class="form-group">
