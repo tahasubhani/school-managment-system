@@ -13,7 +13,7 @@ def HOME(request):
 # add student function
 @login_required(login_url='/')
 def AddStudent(request):
-    regis = 2023000 if Student.objects.count() == 0 else Student.objects.aggregate(max=Max('student_regis'))["max"]+1
+    regis = 000 if Student.objects.count() == 0 else Student.objects.aggregate(max=Max('student_regis'))["max"]+1
     # print(regis)
     section = Section.objects.all()
     # print(section)
